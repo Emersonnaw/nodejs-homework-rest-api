@@ -5,7 +5,7 @@ const DB_HOST = "mongodb+srv://Volodimyr:HMzKMamNELb3NEZl@cluster0.htrn37e.mongo
 mongoose.connect(DB_HOST)
   .then(() => {
     console.log("Database connection successful")
-    app.listen(3000, () => {
+    app.listen(PORT, () => {
       console.log("Server running. Use our API on port: 3000")
     })
   })
