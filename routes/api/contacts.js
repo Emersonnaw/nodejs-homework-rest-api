@@ -22,7 +22,8 @@ router.post('/', validateBody(schemas.schema), postContact)
 
 router.delete('/:contactId', deleteOneContact )
 
-// ----------------------------------------------------------->
+// >> --------------------------------------------------------------------------------------->
+
 router.put('/:contactId', validateBody(schemas.schema), changeContact)
 
 module.exports = router
