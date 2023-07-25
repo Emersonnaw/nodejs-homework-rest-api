@@ -1,10 +1,12 @@
 const express = require('express')
 const router = express.Router();
 
-const { getAll, getById, postContact, deleteOneContact, changeContact } = require('../../controllers/contacts');
+const { getAll, getById, postContact, deleteOneContact, changeContactById, updateFavorite } = require('../../controllers/contacts');
 
-const { validateBody } = require('../../middlewares');
-const schemas = require('../../schemas/contacts')
+
+const { isValidId, validateBody } = require('../../middlewares');
+
+ const {schemas} = require('../../models/contact')
 
 // >> --------------------------------------------------------------------------------------->
 
@@ -12,18 +14,22 @@ router.get('/',getAll)
 
 // >> --------------------------------------------------------------------------------------->
 
-router.get('/:contactId', getById )
+router.get("/:contactId",isValidId, getById )
 
-// >> --------------------------------------------------------------------------------------->
+ // >> --------------------------------------------------------------------------------------->
 
-router.post('/', validateBody(schemas.schema), postContact)
+router.post("/", validateBody(schemas.joiSchema), postContact)
 
-// >> --------------------------------------------------------------------------------------->
+ // >> --------------------------------------------------------------------------------------->
 
-router.delete('/:contactId', deleteOneContact )
+router.delete('/:contactId',isValidId, deleteOneContact )
 
-// >> --------------------------------------------------------------------------------------->
+ // >> --------------------------------------------------------------------------------------->
 
-router.put('/:contactId', validateBody(schemas.schema), changeContact)
+router.put('/:contactId', isValidId, validateBody(schemas.joiSchema), changeContactById)
+
+ // >> --------------------------------------------------------------------------------------->
+router.patch('/:contactId/favorite',isValidId, validateBody(schemas.favoriteShema), updateFavorite)
+
 
 module.exports = router
